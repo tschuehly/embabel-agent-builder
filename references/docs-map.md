@@ -1,14 +1,22 @@
 # Embabel Docs Map
 
-Use this map to fetch current Embabel documentation on demand. Fetch only the files needed for the current design or implementation task.
+Use this map to fetch Embabel documentation on demand. Fetch only the files needed for the current design or implementation task.
 
 Source tree:
-https://github.com/embabel/embabel-agent/tree/main/embabel-agent-docs/src/main/asciidoc
+https://github.com/embabel/embabel-agent/tree/<ref>/embabel-agent-docs/src/main/asciidoc
 
 Raw file pattern:
 
 ```text
-https://raw.githubusercontent.com/embabel/embabel-agent/main/embabel-agent-docs/src/main/asciidoc/<path>
+https://raw.githubusercontent.com/embabel/embabel-agent/<ref>/embabel-agent-docs/src/main/asciidoc/<path>
+```
+
+For implementation work in a project, use the project's configured Embabel artifact version as the docs ref. For Maven projects, `scripts/fetch-docs-section.py` resolves `<embabel-agent.version>` from `pom.xml` and fetches docs from the matching tag, such as `v0.3.4`.
+
+Example:
+
+```bash
+python3 /Users/tschuehly/.codex/skills/embabel-agent-builder/scripts/fetch-docs-section.py reference/annotations/page.adoc --project-dir .
 ```
 
 If a local Embabel checkout is available, prefer the user's supplied checkout path for faster reads.

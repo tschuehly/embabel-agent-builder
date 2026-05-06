@@ -19,8 +19,9 @@ If the user bypasses planning, state the risk: Embabel's typed GOAP flow depends
    - Identify language, build tool, package layout, Spring Boot setup, existing agents, tests, fixtures, and conventions.
    - Do not invent a new structure when the project already has one.
 
-3. Fetch current Embabel docs as needed.
+3. Fetch version-matched Embabel docs as needed.
    - Use `references/docs-map.md` and `scripts/fetch-docs-section.py`.
+   - For implementation in a Maven project, run the fetcher from the target project or pass `--project-dir` so it uses `<embabel-agent.version>` and fetches docs from the matching `embabel-agent` tag.
    - Fetch only the narrow docs needed for the construct being implemented.
 
 4. Implement from the spec.
