@@ -1,11 +1,11 @@
 ---
 name: embabel-agent-builder
-description: Build, design, challenge, implement, and test Embabel agents around domain models, typed GOAP planning, blackboard objects, actions, goals, states, tools, RAG, chatbots, and subagents. Use when creating or modifying Embabel agents, deciding whether a flow should be a simple typed agent, stateful loop, chatbot process, tool-enabled action, RAG workflow, or composed subagent, or when turning an existing domain model into an Embabel agentic flow.
+description: Build, design, challenge, implement, and test Embabel agents from a prompt, product spec, feature spec, or existing domain model. Always produce a high-level Embabel agent spec first, then use it to ground typed GOAP planning, blackboard objects, actions, goals, states, tools, RAG, chatbots, subagents, implementation, tests, and progress tracking.
 ---
 
 # Embabel Agent Builder
 
-Use this skill to design the Embabel agentic flow before coding. Embabel implementation is usually straightforward only after the domain model, blackboard facts, action inputs/outputs, and goal boundaries are coherent.
+Use this skill to turn a prompt, product spec, feature spec, or existing domain model into a high-level Embabel agent spec before coding. Embabel implementation is usually straightforward only after the spec makes the domain model, blackboard facts, action inputs/outputs, and goal boundaries coherent.
 
 ## Operating Mode
 
@@ -17,46 +17,131 @@ When the user uses vague or overloaded terms, call that out immediately and prop
 
 Prefer domain clarity over rapid code generation. Do not implement until the GOAP flow table is coherent enough to explain why each type and action exists.
 
+## Spec-First Rule
+
+Always produce or update a high-level Embabel agent spec before implementation. Treat the spec as the progress tracker and grounding artifact for the rest of the work.
+
+If the user provides only a prompt, convert it into a draft spec and mark assumptions explicitly. If the user provides a product or feature spec, preserve product intent but translate it into Embabel concepts. If the codebase already has a planning/spec location, use it. Otherwise, keep the spec in the conversation until the user asks for implementation; when implementing, create or update a repo-local spec file such as `docs/agents/<agent-name>-spec.md` unless the project has a better established location.
+
+Do not let the spec become a history document. It should describe the supported intended workflow, current design decisions, open questions, and implementation progress.
+
 ## Design Workflow
 
-1. Establish the domain context.
+1. Ingest the input.
+   - Accept a user prompt, product spec, feature spec, ticket, existing code, or existing domain model.
+   - Extract the intended user outcome, actors, domain terms, constraints, integrations, and non-goals.
+   - Challenge product language that is too vague to become typed domain objects or planner facts.
+
+2. Produce the high-level agent spec.
+   - Draft the spec using the template below.
+   - Mark assumptions and open questions.
+   - Ask one blocking question at a time, with a recommended answer.
+   - Keep progress statuses current as design and implementation proceed.
+
+3. Establish the domain context.
    - Identify existing domain objects, services, repositories, events, and user-facing workflows.
    - Separate domain concepts from implementation plumbing.
    - Challenge ambiguous terms and missing ownership boundaries.
 
-2. Define the goal.
+4. Define the goal.
    - Name the final user-visible outcome.
    - Decide the goal-achieving output type.
    - Check whether the requested outcome is one-shot, long-lived, looped, or delegated.
 
-3. Model blackboard facts.
+5. Model blackboard facts.
    - List the typed objects the planner should reason about.
    - Avoid generic blobs such as `Result`, `Context`, `Data`, or `Response` unless the domain language really uses them.
    - Prefer rich domain objects with behavior over anemic DTOs.
 
-4. Design the GOAP flow.
+6. Design the GOAP flow.
    - Each action consumes typed inputs and returns a typed output.
    - Method parameters become preconditions; return types become postconditions.
    - Normal service calls, LLM calls, and tool-enabled LLM calls can coexist in the same flow.
    - Use the flow table below as the central design artifact.
 
-5. Pressure-test advanced patterns.
+7. Pressure-test advanced patterns.
    - Check stateful loops, chatbot processes, tool exposure, RAG, and subagents before coding.
    - Use the simplest pattern that preserves the domain semantics.
 
-6. Fetch current Embabel docs for implementation details.
+8. Fetch current Embabel docs for implementation details.
    - Do not rely on memorized Embabel API details when writing or changing code.
    - Read `references/docs-map.md`, then fetch only the narrowest current docs needed.
 
-7. Implement narrowly.
+9. Implement narrowly.
    - Use the project language, style, package layout, and tests.
    - Prefer annotation-based agents unless the docs and design point to DSL builders or subprocesses.
    - Keep tool exposure action-scoped or prompt-runner-scoped unless current docs justify broader exposure.
+   - Update the spec progress after each coherent implementation step.
 
-8. Verify.
+10. Verify.
    - Unit-test action methods with fake or mocked LLM interactions.
    - Integration-test the complete agent flow when planning, binding, or agent discovery matters.
    - Run the relevant build/test commands.
+   - Record verification results in the spec or final response.
+
+## High-Level Agent Spec
+
+Every use of this skill should produce this spec or update an existing one:
+
+```md
+# <Agent Name> Embabel Agent Spec
+
+## Source Input
+
+Summarize the prompt, product spec, feature spec, ticket, or code context that motivated the agent.
+
+## User Outcome
+
+Describe the user-visible result the agent must produce.
+
+## Domain Model
+
+| Term | Meaning | Existing Type | New/Changed Type | Notes |
+|---|---|---|---|---|
+|  |  |  |  |  |
+
+## Blackboard Facts
+
+| Fact Type | Producer | Consumers | Why It Belongs On The Blackboard |
+|---|---|---|---|
+|  |  |  |  |
+
+## GOAP Flow
+
+| Step | Action | Inputs | Output | Purpose | LLM? | Tools? | Goal? |
+|---|---|---|---|---|---|---|---|
+|  |  |  |  |  |  |  |  |
+
+## Advanced Pattern Decisions
+
+| Pattern | Decision | Reason |
+|---|---|---|
+| Stateful loops | Use / Avoid / Open |  |
+| Chatbot process | Use / Avoid / Open |  |
+| Tool exposure | Use / Avoid / Open |  |
+| RAG | Use / Avoid / Open |  |
+| Subagents | Use / Avoid / Open |  |
+
+## Implementation Plan
+
+| Status | Work Item | Notes |
+|---|---|---|
+| pending |  |  |
+
+## Tests And Verification
+
+| Status | Check | Notes |
+|---|---|---|
+| pending |  |  |
+
+## Open Questions
+
+- 
+
+## Assumptions
+
+- 
+```
 
 ## GOAP Flow Table
 
