@@ -23,6 +23,7 @@ If the user bypasses planning, state the risk: Embabel's typed GOAP flow depends
    - Use `references/docs-map.md` and `scripts/fetch-docs-section.py`.
    - For implementation in a Maven project, run the fetcher from the target project or pass `--project-dir` so it uses `<embabel-agent.version>` and fetches docs from the matching `embabel-agent` tag.
    - Fetch only the narrow docs needed for the construct being implemented.
+   - Do not inspect Maven JARs, source JARs, decompiled classes, or local dependency caches as a substitute for docs research. Use local artifacts only after version-matched docs are insufficient and a concrete compile/runtime mismatch remains.
 
 4. Implement from the spec.
    - Add or modify domain objects first when they are the core blackboard facts.

@@ -31,7 +31,9 @@ Challenge vague or overloaded terms. Propose canonical domain language when need
 
 Ask one unresolved blocking question at a time, give a recommended answer, and continue only after the user accepts, rejects, or refines it.
 
-When implementation touches Embabel-specific APIs, fetch current docs using `references/docs-map.md` or `scripts/fetch-docs-section.py`. Fetch only the narrowest docs needed.
+When implementation touches Embabel-specific APIs, fetch version-matched docs using `references/docs-map.md` and `scripts/fetch-docs-section.py`. Run the fetcher from the target project or pass `--project-dir` so it resolves the repository's Embabel version. Fetch only the narrowest docs needed.
+
+Do not inspect Maven JARs, source JARs, decompiled classes, or local dependency caches as a substitute for Embabel docs research. Use them only after the version-matched docs are insufficient and there is a concrete compile/runtime mismatch to investigate.
 
 Do not copy migration, roadmap, or old-vs-new framing into project documentation. Describe only the supported current workflow and intended state.
 
@@ -59,4 +61,4 @@ Load exactly the reference needed for the selected route:
 - Planning: `references/planning.md`
 - Docs research: `references/docs-research.md`
 - Implementation: `references/implementation.md`
-- Current Embabel docs map: `references/docs-map.md`
+- Version-matched Embabel docs map: `references/docs-map.md`
