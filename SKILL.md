@@ -1,11 +1,13 @@
 ---
 name: embabel-agent-builder
-description: Build, design, challenge, implement, and test Embabel agents from a prompt, product spec, feature spec, or existing domain model. Always produce a high-level Embabel agent spec first, then use it to ground typed GOAP planning, blackboard objects, actions, goals, states, tools, RAG, chatbots, subagents, implementation, tests, and progress tracking.
+description: Use only when the user explicitly invokes the embabel-agent-builder skill by name or path. When invoked, build, design, challenge, implement, and test Embabel agents from a prompt, product spec, feature spec, or existing domain model using a high-level spec-first workflow.
 ---
 
 # Embabel Agent Builder
 
 Use this skill to turn a prompt, product spec, feature spec, or existing domain model into a high-level Embabel agent spec before coding. Embabel implementation is usually straightforward only after the spec makes the domain model, blackboard facts, action inputs/outputs, and goal boundaries coherent.
+
+Do not use this skill automatically for general Embabel work. Use it only when the user explicitly invokes `embabel-agent-builder` by name or path.
 
 ## Operating Mode
 
