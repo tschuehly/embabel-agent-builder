@@ -1,4 +1,4 @@
 interface:
   display_name: "Embabel Agent Builder"
-  short_description: "Build domain-first Embabel agents."
-  default_prompt: "Use this skill to turn a prompt, product spec, feature spec, or existing domain model into a high-level Embabel agent spec first. Challenge ambiguous terms, produce a typed GOAP flow, decide states/tools/RAG/chatbots/subagents, fetch current Embabel docs on demand, then implement, test, and keep progress tracked in the spec."
+  short_description: "Route Embabel agent build phases."
+  default_prompt: "Use this skill to route an Embabel agent request: plan from a prompt/product/feature spec, research current docs for a specific implementation question, implement from an approved high-level spec, or run the end-to-end spec-first build."
