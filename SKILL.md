@@ -37,6 +37,8 @@ Do not inspect Maven JARs, source JARs, decompiled classes, or local dependency 
 
 Do not copy migration, roadmap, or old-vs-new framing into project documentation. Describe only the supported current workflow and intended state.
 
+For every LLM action that creates a typed object, require a structured-output contract. Cover the target output type, nullable fields, required Kotlin constructor parameters, `SomeOf` fields, absent-value representation, validation/defaulting strategy, typed examples for strict or optional nested output, and downstream formatter inputs. Do not mark implementation complete while structured-output binding or live/fixture acceptance remains unverified unless the spec records a concrete blocker.
+
 ## High-Level Spec Contract
 
 Planning and implementation routes revolve around a high-level Embabel agent spec. Keep it as the grounding artifact and progress tracker.
@@ -47,6 +49,7 @@ The spec must cover:
 - domain model and important terms
 - blackboard facts
 - GOAP flow
+- structured-output contracts for typed LLM outputs
 - advanced pattern decisions for stateful loops, chatbots, tool exposure, RAG, and subagents
 - implementation plan and progress
 - tests and verification

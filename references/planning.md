@@ -33,11 +33,18 @@ Produce or update a high-level Embabel agent spec. Do not implement unless the u
    - Method parameters become preconditions; return types become postconditions.
    - Normal service calls, LLM calls, and tool-enabled LLM calls can coexist in one flow.
 
-6. Pressure-test advanced patterns.
+6. Define structured-output contracts.
+   - For every action that calls `PromptRunner.createObject`, `creating(...).fromPrompt`, or `createObjectIfPossible`, specify the target output type and required shape.
+   - Call out nullable fields, required Kotlin constructor parameters, `SomeOf` fields, and the exact representation for absent optional facts, normally `null`.
+   - Decide whether invalid or missing values are handled by schema defaults, bean validation, deterministic code, LLM retry, or bounded repair.
+   - Require typed examples for outputs with optional nested objects, union-style `SomeOf` results, or strict non-null fields.
+   - Prove that formatter actions receive every fact they must truthfully mention.
+
+7. Pressure-test advanced patterns.
    - Decide whether stateful loops, chatbot processes, tool exposure, RAG, or subagents are needed.
    - Use the simplest pattern that preserves the domain semantics.
 
-7. Ask one blocking question at a time.
+8. Ask one blocking question at a time.
    - Ask only when code inspection and the input cannot answer it.
    - Include a recommended answer and its tradeoff.
 
@@ -72,6 +79,12 @@ Describe the user-visible result the agent must produce.
 |---|---|---|---|---|---|---|---|
 |  |  |  |  |  |  |  |  |
 
+## Structured Output Contracts
+
+| Action | Output Type | Required Shape | Nullable/Absent Values | Validation And Defaults | Examples Needed | Formatter Truthfulness Risk |
+|---|---|---|---|---|---|---|
+|  |  |  |  |  |  |  |
+
 ## Advanced Pattern Decisions
 
 | Pattern | Decision | Reason |
@@ -93,6 +106,8 @@ Describe the user-visible result the agent must produce.
 | Status | Check | Notes |
 |---|---|---|
 | pending |  |  |
+| pending | Structured-output binding acceptance | Cover optional nested objects, `SomeOf` binding, required constructor fields, and malformed alternatives such as `{}` where relevant. |
+| pending | Formatter truthfulness acceptance | Verify final response text only mentions facts available to the formatter. |
 
 ## Open Questions
 
@@ -114,6 +129,9 @@ After drafting the GOAP table, challenge it:
 - What happens if an action returns null or produces a subtype route?
 - Which actions are read-only, costly, valuable, or unsafe to rerun?
 - Which facts must persist across loops or user turns?
+- Which typed LLM outputs can fail deserialization or bean validation, and does the design prevent expensive retry loops?
+- Can optional nested facts be omitted without producing invalid placeholder objects?
+- Does each formatter action receive enough typed state to avoid inventing notes about absent context?
 
 ## Advanced Pattern Questions
 
