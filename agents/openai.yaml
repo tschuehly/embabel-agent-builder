@@ -1,0 +1,4 @@
+interface:
+  display_name: "Embabel Agent Builder"
+  short_description: "Build domain-first Embabel agents."
+  default_prompt: "Use this skill to build an Embabel agent from the domain model first: challenge ambiguous terms, produce a typed GOAP flow, decide states/tools/RAG/chatbots/subagents, fetch current Embabel docs on demand, then implement and test."
