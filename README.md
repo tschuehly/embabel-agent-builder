@@ -1,8 +1,20 @@
 # Embabel Agent Builder
 
-`embabel-agent-builder` is a Codex skill for designing and implementing Embabel agents through a spec-first workflow. It routes explicit skill invocations to the right phase: planning, version-matched documentation research, implementation from an approved spec, or an end-to-end build.
+`embabel-agent-builder` is an agent skill for designing and implementing Embabel agents through a spec-first workflow. It routes explicit skill invocations to the right phase: planning, version-matched documentation research, implementation from an approved spec, or an end-to-end build.
+
+The skill uses the portable `SKILL.md` Agent Skills format and works with any tool that supports it, including **Claude Code** and **OpenAI Codex**. All routing, guardrails, and phase references live in tool-agnostic Markdown, so no behavior is specific to one assistant.
 
 Use this skill only when the user explicitly invokes `embabel-agent-builder` by name or path.
+
+## Compatibility and Install
+
+| Tool | How it loads | Install |
+|---|---|---|
+| Claude Code | Reads `SKILL.md` frontmatter (`name`, `description`) | Place the skill directory under `~/.claude/skills/` or a project `.claude/skills/` directory |
+| OpenAI Codex | Reads `SKILL.md`; `agents/openai.yaml` supplies optional interface metadata (display name, prompt) | Place the skill directory where your Codex setup discovers skills |
+| Other SKILL.md-compatible tools | Read `SKILL.md` frontmatter | Follow that tool's skill-install path |
+
+`SKILL.md` is the single source of behavior for every tool. `agents/openai.yaml` only adds Codex-facing presentation metadata and is ignored by tools that do not use it.
 
 ## Supported Workflow
 
@@ -70,10 +82,10 @@ Do not mark an implementation complete while structured-output binding or live o
 
 ```text
 .
-|-- SKILL.md
+|-- SKILL.md                     # portable skill definition + routing (all tools)
 |-- README.md
 |-- agents/
-|   `-- openai.yaml
+|   `-- openai.yaml              # optional Codex interface metadata
 |-- references/
 |   |-- docs-map.md
 |   |-- docs-research.md
