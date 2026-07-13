@@ -6,7 +6,7 @@ The skill uses the portable `SKILL.md` Agent Skills format and works with any to
 
 Use this skill only when the user explicitly invokes `embabel-agent-builder` by name or path.
 
-## Compatibility and Install
+## Compatibility
 
 | Tool | How it loads | Install |
 |---|---|---|
@@ -15,6 +15,15 @@ Use this skill only when the user explicitly invokes `embabel-agent-builder` by 
 | Other SKILL.md-compatible tools | Read `SKILL.md` frontmatter | Follow that tool's skill-install path |
 
 `SKILL.md` is the single source of behavior for every tool. `agents/openai.yaml` only adds Codex-facing presentation metadata and is ignored by tools that do not use it.
+
+## Installation
+
+1. Clone or download this repository.
+2. Install the skill directory in the location used by your agent tool:
+   - **Claude Code:** `~/.claude/skills/` for a user-wide installation, or `.claude/skills/` for a project installation.
+   - **OpenAI Codex:** place it where your Codex setup discovers skills.
+   - **Other SKILL.md-compatible tools:** follow the tool's skill-install instructions.
+3. Invoke the skill explicitly by name or path: `embabel-agent-builder`.
 
 ## Supported Workflow
 
